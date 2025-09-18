@@ -1,0 +1,23 @@
+@startuml
+    title Package Diagram
+  
+  package "RecipeManagement" {
+    class Recipe
+    class Ingredient
+    class StepInstruction
+    class Category
+    class CookingTechnique
+    class Utensil
+    class Source
+  }
+  
+  package "UserManagement" {
+    class User
+  }
+  
+  package "CommentManagement" {
+    class Comment
+    class Rating
+  }
+  
+@enduml

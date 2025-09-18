@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comment & Rating Management – Recipe Management System</title>
+  <link rel="stylesheet" href="../asset/css/estilos.css">
+</head>
+<body>
+<header>
+  <h1>Comment & Rating Management</h1>
+</header>
+<nav>
+  <a href="../index.html" class="nav-link">Inicio</a>
+  <a href="../recipe_management/recipe_management.html" class="nav-link">Recipe Management</a>
+  <a href="../user_management/user_management.html" class="nav-link">User Management</a>
+  <a href="comment_rating_management.html" class="nav-link active">Comment & Rating Management</a>
+</nav>
+<main>
+  <div class="card">
+    <p>Manages comments and ratings from users on recipes.</p>
+    <h2>Entities</h2>
+    <table>
+      <thead><tr><th>Entity</th><th>Attributes</th></tr></thead>
+      <tbody>
+      <tr><td><strong>comment</strong></td><td>id, recipe_id, user_id, text, date, status, created_at, updated_at, deleted_at</td></tr>
+      <tr><td><strong>rating</strong></td><td>id, recipe_id, user_id, score, date, status, created_at, updated_at, deleted_at</td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>
