@@ -1,0 +1,139 @@
+@startuml Class Diagram
+
+class Recipe {
+  + id: UUID
+  + title: String
+  + description: String
+  + preparation_time: int
+  + difficulty: String
+  + category_id: UUID
+  + cooking_technique_id: UUID
+  + source_id: UUID
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class Ingredient {
+  + id: UUID
+  + recipe_id: UUID
+  + name: String
+  + quantity: float
+  + unit: String
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class StepInstruction {
+  + id: UUID
+  + recipe_id: UUID
+  + order: int
+  + description: String
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class Category {
+  + id: UUID
+  + name: String
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class CookingTechnique {
+  + id: UUID
+  + name: String
+  + description: String
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class Source {
+  + id: UUID
+  + name: String
+  + type: String
+  + description: String
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class Utensil {
+  + id: UUID
+  + name: String
+  + description: String
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class RecipeUtensil {
+  + id: UUID
+  + recipe_id: UUID
+  + utensil_id: UUID
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class User {
+  + id: UUID
+  + name: String
+  + email: String
+  + registration_date: Date
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class Comment {
+  + id: UUID
+  + recipe_id: UUID
+  + user_id: UUID
+  + text: String
+  + date: Date
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class Rating {
+  + id: UUID
+  + recipe_id: UUID
+  + user_id: UUID
+  + score: int
+  + date: Date
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+Recipe "1" -- "*" Ingredient
+Recipe "1" -- "*" StepInstruction
+Recipe "*" -- "1" Category
+Recipe "*" -- "1" CookingTechnique
+Recipe "*" -- "1" Source
+Recipe "*" -- "*" Utensil : through RecipeUtensil
+Recipe "1" -- "*" Comment
+Recipe "1" -- "*" Rating
+User "1" -- "*" Comment
+User "1" -- "*" Rating
+RecipeUtensil "*" -- "1" Recipe
+RecipeUtensil "*" -- "1" Utensil
+
+@enduml

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Management System – Proyecto</title>
+  <link rel="stylesheet" href="asset/css/estilos.css">
+  <script>
+    function openTab(evt, tabName, skipHash) {
+      var i, sections, buttons;
+      sections = document.querySelectorAll('section');
+      for (i = 0; i < sections.length; i++) {
+        sections[i].classList.remove('active');
+      }
+      buttons = document.querySelectorAll('nav[role="tablist"] button');
+      for (i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('active');
+        buttons[i].setAttribute('aria-selected', 'false');
+      }
+      var targetSection = document.getElementById(tabName);
+      if (targetSection) targetSection.classList.add('active');
+      if (evt && evt.currentTarget) {
+        evt.currentTarget.classList.add('active');
+        evt.currentTarget.setAttribute('aria-selected', 'true');
+      }
+      if (!skipHash) {
+        try { location.hash = tabName; } catch (e) {}
+      }
+    }
+    function openSubTab(elmnt, contentId) {
+      var i, contents, buttons;
+      contents = document.getElementsByClassName('subcontent');
+      for (i = 0; i < contents.length; i++) {
+        contents[i].classList.remove('active');
+      }
+      buttons = elmnt.parentElement.querySelectorAll('button');
+      for (i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('active');
+      }
+      document.getElementById(contentId).classList.add('active');
+      elmnt.classList.add('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize tabs from hash
+      var initial = (location.hash || '').replace('#','') || 'presentation';
+      var initialBtn = document.querySelector("nav button[data-tab='"+initial+"']") || document.querySelector('nav button');
+      if (initialBtn) {
+        openTab({currentTarget: initialBtn}, initialBtn.getAttribute('data-tab') || 'presentation', true);
+      }
+
+      // Filter modules by search
+      var search = document.getElementById('moduleSearch');
+      if (search) {
+        var items = Array.prototype.slice.call(document.querySelectorAll('.modules-grid a.card'));
+        search.addEventListener('input', function(){
+          var q = (search.value || '').toLowerCase().trim();
+          items.forEach(function(el){
+            var text = el.textContent.toLowerCase();
+            el.style.display = text.indexOf(q) > -1 ? '' : 'none';
+          });
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+<header>
+  <h1>Recipe Management System</h1>
+</header>
+<nav role="tablist" aria-label="Navegación de secciones">
+  <button role="tab" aria-controls="presentation" aria-selected="true" class="active" data-tab="presentation" onclick="openTab(event, 'presentation')">Presentación</button>
+  <button role="tab" aria-controls="diagrams" aria-selected="false" data-tab="diagrams" onclick="openTab(event, 'diagrams')">Diagramas</button>
+  <button role="tab" aria-controls="hu" aria-selected="false" data-tab="hu" onclick="openTab(event, 'hu')">Tablero HU</button>
+  <button role="tab" aria-controls="moscow" aria-selected="false" data-tab="moscow" onclick="openTab(event, 'moscow')">MoSCoW</button>
+  <button role="tab" aria-controls="phases" aria-selected="false" data-tab="phases" onclick="openTab(event, 'phases')">Fases & Estimación</button>
+</nav>
+<div class="module-nav" aria-label="Módulos del sistema">
+  <a href="recipe_management/recipe_management.html" class="nav-link">Recipe Management</a>
+  <a href="user_management/user_management.html" class="nav-link">User Management</a>
+  <a href="comment_rating_management/comment_rating_management.html" class="nav-link">Comment & Rating Management</a>
+</div>
+<section id="presentation" class="active">
+  <div class="card" style="margin-top: 8px;">
+    <h2 style="margin-top:0">Presentación del Proyecto</h2>
+    <p>Este sistema gestiona todas las operaciones relacionadas con recetas: desde la definición de categorías, técnicas de cocción y fuentes hasta la valoración y comentarios de usuarios. Incluye módulos para gestión de recetas, usuarios y comentarios/valoraciones.</p>
+    <div class="searchbar">
+      <input id="moduleSearch" type="search" placeholder="Buscar módulo por nombre..." aria-label="Buscar módulo">
+    </div>
+    <div class="modules-grid">
+      <a href='recipe_management/recipe_management.html' class="card">Recipe Management</a>
+      <a href='user_management/user_management.html' class="card">User Management</a>
+      <a href='comment_rating_management/comment_rating_management.html' class="card">Comment & Rating Management</a>
+    </div>
+  </div>
+</section>
+<section id="diagrams">
+  <h2>Diagramas</h2>
+  <div class="subtabs">
+    <button class='active' onclick="openSubTab(this,'diagram-content-0')">Package Diagram</button><button class='' onclick="openSubTab(this,'diagram-content-1')">Class Diagram</button><button class='' onclick="openSubTab(this,'diagram-content-2')">Sequence Diagram</button><button class='' onclick="openSubTab(this,'diagram-content-3')">Use Case Diagram</button>
+  </div>
+  
+    <div id="diagram-content-0" class="subcontent active">
+      <h3>Package Diagram</h3>
+      <img src="asset/doc/proyecto/packeage/Packeage.png" alt="Package Diagram" style="max-width:100%;height:auto; border:1px solid #e5e7eb;">
+      <h4>PlantUML Source</h4>
+      <pre><code>@startuml
+    title Package Diagram
+  
+  package "RecipeManagement" {
+    class Recipe
+    class Ingredient
+    class StepInstruction
+    class Category
+    class CookingTechnique
+    class Utensil
+    class Source
+  }
+  
+  package "UserManagement" {
+    class User
+  }
+  
+  package "CommentManagement" {
+    class Comment
+    class Rating
+  }
+  
+@enduml
+</code></pre>
+    </div>
+    
+    <div id="diagram-content-1" class="subcontent ">
+      <h3>Class Diagram</h3>
+      <img src="asset/doc/proyecto/class/class.png" alt="Class Diagram" style="max-width:100%;height:auto; border:1px solid #e5e7eb;">
+      <h4>PlantUML Source</h4>
+      <pre><code>@startuml Class Diagram
+
+class Recipe {
+  + id: UUID
+  + title: String
+  + description: String
+  + preparation_time: int
+  + difficulty: String
+  + category_id: UUID
+  + cooking_technique_id: UUID
+  + source_id: UUID
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class Ingredient {
+  + id: UUID
+  + recipe_id: UUID
+  + name: String
+  + quantity: float
+  + unit: String
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class StepInstruction {
+  + id: UUID
+  + recipe_id: UUID
+  + order: int
+  + description: String
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class Category {
+  + id: UUID
+  + name: String
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class CookingTechnique {
+  + id: UUID
+  + name: String
+  + description: String
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class Source {
+  + id: UUID
+  + name: String
+  + type: String
+  + description: String
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class Utensil {
+  + id: UUID
+  + name: String
+  + description: String
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class RecipeUtensil {
+  + id: UUID
+  + recipe_id: UUID
+  + utensil_id: UUID
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class User {
+  + id: UUID
+  + name: String
+  + email: String
+  + registration_date: Date
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class Comment {
+  + id: UUID
+  + recipe_id: UUID
+  + user_id: UUID
+  + text: String
+  + date: Date
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+class Rating {
+  + id: UUID
+  + recipe_id: UUID
+  + user_id: UUID
+  + score: int
+  + date: Date
+  + status: String
+  + created_at: Date
+  + updated_at: Date
+  + deleted_at: Date
+}
+
+Recipe "1" -- "*" Ingredient
+Recipe "1" -- "*" StepInstruction
+Recipe "*" -- "1" Category
+Recipe "*" -- "1" CookingTechnique
+Recipe "*" -- "1" Source
+Recipe "*" -- "*" Utensil : through RecipeUtensil
+Recipe "1" -- "*" Comment
+Recipe "1" -- "*" Rating
+User "1" -- "*" Comment
+User "1" -- "*" Rating
+RecipeUtensil "*" -- "1" Recipe
+RecipeUtensil "*" -- "1" Utensil
+
+@enduml
+</code></pre>
+    </div>
+    
+    <div id="diagram-content-2" class="subcontent ">
+      <h3>Sequence Diagram</h3>
+      <img src="asset/doc/proyecto/secuence/Secuence.png" alt="Sequence Diagram" style="max-width:100%;height:auto; border:1px solid #e5e7eb;">
+      <h4>PlantUML Source</h4>
+      <pre><code>@startuml Sequence Diagram
+actor User
+participant System
+participant Database
+
+User -> System: Request Login
+System --> User: Show Login Form
+User -> System: Submit Credentials
+System -> Database: Validate User
+Database --> System: User Valid
+System --> User: Login Successful
+
+User -> System: Create Recipe
+System --> User: Show Recipe Form
+User -> System: Submit Recipe Data
+System -> Database: Save Recipe
+Database --> System: Recipe Saved
+System --> User: Recipe Created
+@enduml
+</code></pre>
+    </div>
+    
+    <div id="diagram-content-3" class="subcontent ">
+      <h3>Use Case Diagram</h3>
+      <img src="asset/doc/proyecto/use_case/use_case.png" alt="Use Case Diagram" style="max-width:100%;height:auto; border:1px solid #e5e7eb;">
+      <h4>PlantUML Source</h4>
+      <pre><code>@startuml Use Case Diagram
+left to right direction
+actor User as U
+
+rectangle "Recipe Management System" {
+  usecase "Register" as UC1
+  usecase "Login" as UC2
+  usecase "Create Recipe" as UC3
+  usecase "View Recipes" as UC4
+  usecase "Edit Recipe" as UC5
+  usecase "Delete Recipe" as UC6
+  usecase "Search Recipes" as UC7
+  usecase "Add Comment" as UC8
+  usecase "Rate Recipe" as UC9
+}
+
+U --> UC1
+U --> UC2
+U --> UC3
+U --> UC4
+U --> UC5
+U --> UC6
+U --> UC7
+U --> UC8
+U --> UC9
+@enduml
+</code></pre>
+    </div>
+    
+</section>
+<section id="hu">
+  <h2>Tablero de Historias de Usuario (HU)</h2>
+  
+    <details>
+      <summary>Recipe Management</summary>
+      <div>
+        <ul>
+          <li>Como Usuario quiero crear una receta para compartir mis conocimientos culinarios.</li>
+          <li>Como Usuario quiero ver recetas para encontrar ideas de comidas.</li>
+          <li>Como Usuario quiero editar mi receta para corregir errores.</li>
+          <li>Como Usuario quiero eliminar mi receta si ya no es necesaria.</li>
+          <li>Como Usuario quiero buscar recetas por categoría para encontrar lo que busco.</li>
+          <li>Como Usuario quiero agregar ingredientes a mi receta para detallar los componentes.</li>
+          <li>Como Usuario quiero agregar instrucciones paso a paso para guiar la preparación.</li>
+        </ul>
+      </div>
+    </details>
+    
+    <details>
+      <summary>User Management</summary>
+      <div>
+        <ul>
+          <li>Como Usuario quiero registrarme en el sistema para acceder a funcionalidades.</li>
+          <li>Como Usuario quiero iniciar sesión para usar el sistema.</li>
+          <li>Como Usuario quiero gestionar mi perfil para actualizar mis datos.</li>
+        </ul>
+      </div>
+    </details>
+    
+    <details>
+      <summary>Comment & Rating Management</summary>
+      <div>
+        <ul>
+          <li>Como Usuario quiero comentar en una receta para compartir opiniones.</li>
+          <li>Como Usuario quiero valorar una receta para expresar mi satisfacción.</li>
+          <li>Como Usuario quiero ver comentarios y valoraciones de otros usuarios.</li>
+        </ul>
+      </div>
+    </details>
+    
+</section>
+<section id="moscow">
+  <h2>Priorización MoSCoW</h2>
+  <h3>Must</h3><ul><li>Como Usuario quiero registrarme en el sistema para acceder a funcionalidades.</li><li>Como Usuario quiero iniciar sesión para usar el sistema.</li><li>Como Usuario quiero crear una receta para compartir mis conocimientos culinarios.</li><li>Como Usuario quiero ver recetas para encontrar ideas de comidas.</li><li>Como Usuario quiero comentar en una receta para compartir opiniones.</li><li>Como Usuario quiero valorar una receta para expresar mi satisfacción.</li></ul><h3>Should</h3><ul><li>Como Usuario quiero editar mi receta para corregir errores.</li><li>Como Usuario quiero eliminar mi receta si ya no es necesaria.</li><li>Como Usuario quiero buscar recetas por categoría para encontrar lo que busco.</li><li>Como Usuario quiero agregar ingredientes a mi receta para detallar los componentes.</li><li>Como Usuario quiero agregar instrucciones paso a paso para guiar la preparación.</li></ul><h3>Could</h3><ul><li>Como Usuario quiero gestionar mi perfil para actualizar mis datos.</li><li>Como Usuario quiero ver comentarios y valoraciones de otros usuarios.</li></ul><h3>Wont</h3><ul></ul>
+</section>
+<section id="phases">
+  <h2>Fases y Estimación</h2>
+  <table class="phase-table">
+    <thead><tr><th>Fase</th><th>Historias de Usuario</th><th>Estimación (hrs)</th><th>Avance (%)</th></tr></thead>
+    <tbody>
+    <tr><td>Phase 1</td><td><ul><li>Como Usuario quiero registrarme en el sistema para acceder a funcionalidades.</li><li>Como Usuario quiero iniciar sesión para usar el sistema.</li><li>Como Usuario quiero crear una receta para compartir mis conocimientos culinarios.</li><li>Como Usuario quiero ver recetas para encontrar ideas de comidas.</li><li>Como Usuario quiero comentar en una receta para compartir opiniones.</li><li>Como Usuario quiero valorar una receta para expresar mi satisfacción.</li></ul></td><td></td><td></td></tr><tr><td>Phase 2</td><td><ul><li>Como Usuario quiero editar mi receta para corregir errores.</li><li>Como Usuario quiero eliminar mi receta si ya no es necesaria.</li><li>Como Usuario quiero buscar recetas por categoría para encontrar lo que busco.</li><li>Como Usuario quiero agregar ingredientes a mi receta para detallar los componentes.</li><li>Como Usuario quiero agregar instrucciones paso a paso para guiar la preparación.</li></ul></td><td></td><td></td></tr><tr><td>Phase 3</td><td><ul><li>Como Usuario quiero gestionar mi perfil para actualizar mis datos.</li><li>Como Usuario quiero ver comentarios y valoraciones de otros usuarios.</li></ul></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+</section>
+</body>
+</html>
