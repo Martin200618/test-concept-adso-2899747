@@ -1,0 +1,19 @@
+@startuml Sequence Diagram
+actor User
+participant System
+participant Database
+
+User -> System: Request Login
+System --> User: Show Login Form
+User -> System: Submit Credentials
+System -> Database: Validate User
+Database --> System: User Valid
+System --> User: Login Successful
+
+User -> System: Create Recipe
+System --> User: Show Recipe Form
+User -> System: Submit Recipe Data
+System -> Database: Save Recipe
+Database --> System: Recipe Saved
+System --> User: Recipe Created
+@enduml
