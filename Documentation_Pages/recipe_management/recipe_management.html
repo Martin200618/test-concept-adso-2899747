@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Management – Recipe Management System</title>
+  <link rel="stylesheet" href="../asset/css/estilos.css">
+</head>
+<body>
+<header>
+  <h1>Recipe Management</h1>
+</header>
+<nav>
+  <a href="../index.html" class="nav-link">Inicio</a>
+  <a href="recipe_management.html" class="nav-link active">Recipe Management</a>
+  <a href="../user_management/user_management.html" class="nav-link">User Management</a>
+  <a href="../comment_rating_management/comment_rating_management.html" class="nav-link">Comment & Rating Management</a>
+</nav>
+<main>
+  <div class="card">
+    <p>Manages recipes, including ingredients, instructions, categories, techniques, sources and utensils.</p>
+    <h2>Entities</h2>
+    <table>
+      <thead><tr><th>Entity</th><th>Attributes</th></tr></thead>
+      <tbody>
+      <tr><td><strong>recipe</strong></td><td>id, title, description, preparation_time, difficulty, category_id, cooking_technique_id, source_id, status, created_at, updated_at, deleted_at</td></tr>
+      <tr><td><strong>ingredient</strong></td><td>id, recipe_id, name, quantity, unit, status, created_at, updated_at, deleted_at</td></tr>
+      <tr><td><strong>step_instruction</strong></td><td>id, recipe_id, order, description, status, created_at, updated_at, deleted_at</td></tr>
+      <tr><td><strong>category</strong></td><td>id, name, status, created_at, updated_at, deleted_at</td></tr>
+      <tr><td><strong>cooking_technique</strong></td><td>id, name, description, status, created_at, updated_at, deleted_at</td></tr>
+      <tr><td><strong>source</strong></td><td>id, name, type, description, status, created_at, updated_at, deleted_at</td></tr>
+      <tr><td><strong>utensil</strong></td><td>id, name, description, status, created_at, updated_at, deleted_at</td></tr>
+      <tr><td><strong>recipe_utensil</strong></td><td>id, recipe_id, utensil_id, status, created_at, updated_at, deleted_at</td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>
